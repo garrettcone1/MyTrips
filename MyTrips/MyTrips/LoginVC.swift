@@ -43,7 +43,7 @@ class LoginVC: UIViewController {
     
     @IBAction func signUpButton(_ sender: Any) {
         
-        animateExtensionView()
+        showExtensionView()
     }
     
     @IBAction func finishedSigningUp(_ sender: Any) {
@@ -51,7 +51,7 @@ class LoginVC: UIViewController {
         exitExtensionView()
     }
     
-    private func animateExtensionView() {
+    private func showExtensionView() {
         
         self.view.addSubview(extensionView)
         extensionView.center = self.view.center
