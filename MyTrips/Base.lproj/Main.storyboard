@@ -213,38 +213,40 @@
             <point key="canvasLocation" x="136.80000000000001" y="133.00492610837438"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="md9-en-aNI">
-            <objects>
-                <viewController id="t4y-N0-Ncp" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ycC-rr-XFA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Jaj-rK-7Wa"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" selectedImage="Settings" id="ZRN-8L-2Qx">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-25"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aiQ-YP-O1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1878" y="463"/>
-        </scene>
-        <!--View Controller-->
         <scene sceneID="4gc-Ks-oDR">
             <objects>
                 <viewController id="R6R-C2-Exv" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2zQ-WF-F9G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mB3-3f-ZL5"/>
                     </view>
-                    <tabBarItem key="tabBarItem" id="eMh-aC-VSM"/>
+                    <tabBarItem key="tabBarItem" title="" image="Settings" id="eMh-aC-VSM">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-20"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fYm-Ao-3jg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1878" y="-193"/>
+            <point key="canvasLocation" x="977" y="898"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="87p-3o-iTw">
+            <objects>
+                <viewController id="GWR-SE-KgT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Ii-iP-yCh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="gTh-lZ-fwV"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="Trips" id="BXb-ui-EQH">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-20"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hjL-fJ-nxh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1825" y="657"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="t32-mw-mdg">
@@ -254,19 +256,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="t4y-N0-Ncp" kind="relationship" relationship="viewControllers" id="TlI-CF-S7L"/>
+                        <segue destination="vJw-f3-HIp" kind="relationship" relationship="viewControllers" id="eMz-JE-d5h"/>
+                        <segue destination="PN2-jf-ytZ" kind="relationship" relationship="viewControllers" id="c8N-aL-AM2"/>
+                        <segue destination="GWR-SE-KgT" kind="relationship" relationship="viewControllers" id="mey-51-EHK"/>
                         <segue destination="R6R-C2-Exv" kind="relationship" relationship="viewControllers" id="7LO-GJ-W5a"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c4a-hZ-B7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="922" y="133"/>
+            <point key="canvasLocation" x="978" y="133"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="mCK-vf-haU">
+            <objects>
+                <viewController id="vJw-f3-HIp" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nxi-BO-apZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="P42-gL-oCA"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="Home" id="Ebc-j2-CRI">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-20"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iEi-e6-Gnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1634" y="-710"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1aJ-eI-YhH">
+            <objects>
+                <viewController id="PN2-jf-ytZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tCD-aU-lpQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="nPF-aG-0Yn"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="Groups" id="wSO-Cq-j3U">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-20"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="57m-TW-CQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1825" y="-39"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Settings" width="40" height="40"/>
+        <image name="Groups" width="26.25" height="26.25"/>
+        <image name="Home" width="26.25" height="26.25"/>
+        <image name="Settings" width="26.25" height="26.25"/>
+        <image name="Trips" width="26.25" height="26.25"/>
         <image name="WorldMap" width="258" height="257"/>
     </resources>
 </document>
