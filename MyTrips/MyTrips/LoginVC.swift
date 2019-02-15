@@ -14,7 +14,7 @@ import Firebase
 class LoginVC: UIViewController {
 
     // Outlets for LoginVC
-    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var clearView: UIView!
     @IBOutlet weak var backgroundVideoView: UIView!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -41,6 +41,37 @@ class LoginVC: UIViewController {
         
     }
     
+    @IBAction func signInButton(_ sender: Any) {
+        
+        let enteredEmail = isEmailValid(testString: usernameTextField.text!)
+        print(enteredEmail)
+        let enteredPassword = isPasswordValid(testPassword: passwordTextField.text!)
+        print(enteredPassword)
+        
+        if enteredEmail == true && enteredPassword == true {
+            
+            Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { (user, error) in
+                
+                
+            }
+        } else if enteredEmail == false && enteredPassword == true {
+            
+            alertMessage(message: "The email entered is not valid.")
+            usernameTextField.text = ""
+            passwordTextField.text = ""
+        } else if enteredEmail == true && enteredPassword == false {
+            
+            alertMessage(message: "The password entered is not valid.")
+            passwordTextField.text = ""
+        } else {
+            
+            alertMessage(message: "Both the email and password are not valid.")
+            usernameTextField.text = ""
+            passwordTextField.text = ""
+        }
+    }
+    
+    // Animate the extension view
     @IBAction func signUpButton(_ sender: Any) {
         
         showExtensionView()
@@ -48,9 +79,12 @@ class LoginVC: UIViewController {
     
     @IBAction func finishedSigningUp(_ sender: Any) {
         
+        createNewUser()
+        
         exitExtensionView()
     }
     
+    // Animate the extension view
     private func showExtensionView() {
         
         self.view.addSubview(extensionView)
@@ -66,6 +100,7 @@ class LoginVC: UIViewController {
         }
     }
     
+    // Exit the extension view
     private func exitExtensionView() {
         
         UIView.animate(withDuration: 0.3, animations: {
@@ -76,6 +111,54 @@ class LoginVC: UIViewController {
         
             self.extensionView.removeFromSuperview()
         }
+    }
+    
+    // Create the new user with the provided information for Firebase
+    func createNewUser() {
+        
+        // Save name for future use
+        
+        
+        // Test if the email text field input is a valid email
+        let enteredEmail = isEmailValid(testString: emailTextField.text!)
+        print(enteredEmail)
+        let enteredPassword = isPasswordValid(testPassword: newPasswordTextField.text!)
+        print(enteredPassword)
+        
+        if enteredEmail == true && enteredPassword == true {
+            
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: newPasswordTextField.text!) { (authResult, error) in
+                
+                guard (authResult?.user) != nil else {
+                    
+                    return
+                }
+            }
+        } else if enteredEmail == false && enteredPassword == true {
+            
+            alertMessage(message: "The email entered is not valid.")
+            emailTextField.text = ""
+            newPasswordTextField.text = ""
+            reEnterPasswordTextField.text = ""
+        } else if enteredEmail == true && enteredPassword == false {
+            
+            alertMessage(message: "The password entered is not valid.")
+            newPasswordTextField.text = ""
+            reEnterPasswordTextField.text = ""
+        } else {
+            
+            alertMessage(message: "Both the email and password are not valid.")
+            emailTextField.text = ""
+            newPasswordTextField.text = ""
+            reEnterPasswordTextField.text = ""
+        }
+    }
+    
+    public func alertMessage(message: String) {
+        
+        let alert = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     // Check if email string entered is a valid email format
@@ -89,11 +172,11 @@ class LoginVC: UIViewController {
     }
     
     // Check if password string entered is a valid password format (Has an uppercase, lowercase, a number and is at least 8 characters long)
-    func isPasswordValid(_ password: String) -> Bool {
+    func isPasswordValid(testPassword: String) -> Bool {
         
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$")
         
-        return passwordTest.evaluate(with: password)
+        return passwordTest.evaluate(with: testPassword)
     }
     
     // Set up for background and button layouts
@@ -107,10 +190,10 @@ class LoginVC: UIViewController {
         usernameTextField.underlined()
         passwordTextField.underlined()
         
-        signUpButton.layer.cornerRadius = 10
-        signUpButton.layer.borderWidth = 2
-        signUpButton.layer.borderColor = UIColor.white.cgColor
-        signUpButton.setTitle("Sign In", for: .normal)
+        signInButton.layer.cornerRadius = 10
+        signInButton.layer.borderWidth = 2
+        signInButton.layer.borderColor = UIColor.white.cgColor
+        signInButton.setTitle("Sign In", for: .normal)
     }
     
     // Set up for video background layout

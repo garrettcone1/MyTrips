@@ -38,6 +38,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="signInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sMX-HP-CEm"/>
                                             <segue destination="r1h-hn-W5L" kind="show" id="bkq-Da-Ft3"/>
                                         </connections>
                                     </button>
@@ -123,7 +124,7 @@
                         <outlet property="newPasswordTextField" destination="WKU-8f-vdI" id="kMz-l8-tsI"/>
                         <outlet property="passwordTextField" destination="yZn-eH-Otx" id="jSo-Zz-E7m"/>
                         <outlet property="reEnterPasswordTextField" destination="yBO-87-Fc9" id="Xfq-hM-Pao"/>
-                        <outlet property="signUpButton" destination="jA9-LH-t7b" id="qRh-sp-h7E"/>
+                        <outlet property="signInButton" destination="jA9-LH-t7b" id="RoC-cd-nRQ"/>
                         <outlet property="usernameTextField" destination="U6c-AZ-1L3" id="MOj-QK-GT3"/>
                     </connections>
                 </viewController>
@@ -212,10 +213,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="133.00492610837438"/>
         </scene>
-        <!--View Controller-->
+        <!--SettingsVC-->
         <scene sceneID="4gc-Ks-oDR">
             <objects>
-                <viewController id="R6R-C2-Exv" sceneMemberID="viewController">
+                <viewController id="R6R-C2-Exv" customClass="SettingsVC" customModule="MyTrips" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2zQ-WF-F9G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -228,12 +229,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fYm-Ao-3jg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="977" y="898"/>
+            <point key="canvasLocation" x="897" y="877"/>
         </scene>
-        <!--View Controller-->
+        <!--TripsVC-->
         <scene sceneID="87p-3o-iTw">
             <objects>
-                <viewController id="GWR-SE-KgT" sceneMemberID="viewController">
+                <viewController id="GWR-SE-KgT" customClass="TripsVC" customModule="MyTrips" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Ii-iP-yCh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -246,7 +247,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjL-fJ-nxh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1825" y="657"/>
+            <point key="canvasLocation" x="1825" y="432"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="t32-mw-mdg">
@@ -267,12 +268,12 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c4a-hZ-B7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="978" y="133"/>
+            <point key="canvasLocation" x="897" y="133"/>
         </scene>
-        <!--View Controller-->
+        <!--Home PageVC-->
         <scene sceneID="mCK-vf-haU">
             <objects>
-                <viewController id="vJw-f3-HIp" sceneMemberID="viewController">
+                <viewController id="vJw-f3-HIp" customClass="HomePageVC" customModule="MyTrips" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nxi-BO-apZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -285,12 +286,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEi-e6-Gnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1634" y="-710"/>
+            <point key="canvasLocation" x="1825" y="-879"/>
         </scene>
-        <!--View Controller-->
+        <!--GroupsVC-->
         <scene sceneID="1aJ-eI-YhH">
             <objects>
-                <viewController id="PN2-jf-ytZ" sceneMemberID="viewController">
+                <viewController id="PN2-jf-ytZ" customClass="GroupsVC" customModule="MyTrips" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tCD-aU-lpQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -303,7 +304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57m-TW-CQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1825" y="-39"/>
+            <point key="canvasLocation" x="1825" y="-223"/>
         </scene>
     </scenes>
     <resources>
