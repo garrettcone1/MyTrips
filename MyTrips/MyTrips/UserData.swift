@@ -1,5 +1,5 @@
 //
-//  SettingsVC.swift
+//  UserData.swift
 //  MyTrips
 //
 //  Created by Garrett Cone on 2/14/19.
@@ -8,12 +8,10 @@
 
 import Foundation
 import UIKit
-import Firebase
 
-class SettingsVC: UIViewController {
+struct UserData {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+    // UserID
+    // email
+    // photoURL
 }

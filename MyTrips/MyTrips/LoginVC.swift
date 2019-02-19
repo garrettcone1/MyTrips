@@ -22,10 +22,11 @@ class LoginVC: UIViewController {
     
     // Outlets for popup view
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var newPasswordTextField: UITextField!
-    @IBOutlet weak var reEnterPasswordTextField: UITextField!
     @IBOutlet weak var finishedButton: UIButton!
+    @IBOutlet weak var editPhotoButton: UIButton!
     @IBOutlet var extensionView: UIView!
     
     override func viewDidLoad() {
@@ -43,32 +44,32 @@ class LoginVC: UIViewController {
     
     @IBAction func signInButton(_ sender: Any) {
         
-        let enteredEmail = isEmailValid(testString: usernameTextField.text!)
-        print(enteredEmail)
-        let enteredPassword = isPasswordValid(testPassword: passwordTextField.text!)
-        print(enteredPassword)
-        
-        if enteredEmail == true && enteredPassword == true {
-            
-            Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { (user, error) in
-                
-                
-            }
-        } else if enteredEmail == false && enteredPassword == true {
-            
-            alertMessage(message: "The email entered is not valid.")
-            usernameTextField.text = ""
-            passwordTextField.text = ""
-        } else if enteredEmail == true && enteredPassword == false {
-            
-            alertMessage(message: "The password entered is not valid.")
-            passwordTextField.text = ""
-        } else {
-            
-            alertMessage(message: "Both the email and password are not valid.")
-            usernameTextField.text = ""
-            passwordTextField.text = ""
-        }
+//        let enteredEmail = isEmailValid(testString: usernameTextField.text!)
+//        print(enteredEmail)
+//        let enteredPassword = isPasswordValid(testPassword: passwordTextField.text!)
+//        print(enteredPassword)
+//
+//        if enteredEmail == true && enteredPassword == true {
+//            
+//            Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { (user, error) in
+//
+//                // Check for errors
+//            }
+//        } else if enteredEmail == false && enteredPassword == true {
+//
+//            alertMessage(message: "The email entered is not valid.")
+//            usernameTextField.text = ""
+//            passwordTextField.text = ""
+//        } else if enteredEmail == true && enteredPassword == false {
+//
+//            alertMessage(message: "The password entered is not valid.")
+//            passwordTextField.text = ""
+//        } else {
+//
+//            alertMessage(message: "Both the email and password are not valid.")
+//            usernameTextField.text = ""
+//            passwordTextField.text = ""
+//        }
     }
     
     // Animate the extension view
@@ -92,6 +93,12 @@ class LoginVC: UIViewController {
         
         extensionView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         extensionView.alpha = 0
+        
+        profileImage.layer.borderWidth = 3
+        profileImage.layer.masksToBounds = false
+        profileImage.layer.borderColor = UIColor.darkGray.cgColor
+        profileImage.layer.cornerRadius = profileImage.frame.height / 2
+        profileImage.clipsToBounds = true
         
         UIView.animate(withDuration: 0.4) {
             
@@ -139,18 +146,15 @@ class LoginVC: UIViewController {
             alertMessage(message: "The email entered is not valid.")
             emailTextField.text = ""
             newPasswordTextField.text = ""
-            reEnterPasswordTextField.text = ""
         } else if enteredEmail == true && enteredPassword == false {
             
             alertMessage(message: "The password entered is not valid.")
             newPasswordTextField.text = ""
-            reEnterPasswordTextField.text = ""
         } else {
             
             alertMessage(message: "Both the email and password are not valid.")
             emailTextField.text = ""
             newPasswordTextField.text = ""
-            reEnterPasswordTextField.text = ""
         }
     }
     
@@ -178,6 +182,8 @@ class LoginVC: UIViewController {
         
         return passwordTest.evaluate(with: testPassword)
     }
+    
+    //************ Add Question mark bubble action next to password text field to let users know requirements for a password
     
     // Set up for background and button layouts
     private func setUpLayout() {
@@ -228,12 +234,10 @@ class LoginVC: UIViewController {
         nameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
         newPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
-        reEnterPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Re-Enter Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
         
         nameTextField.underlined()
         emailTextField.underlined()
         newPasswordTextField.underlined()
-        reEnterPasswordTextField.underlined()
         
         finishedButton.layer.cornerRadius = 10
         finishedButton.layer.borderWidth = 2
