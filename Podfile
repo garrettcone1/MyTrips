@@ -8,6 +8,8 @@ target 'MyTrips' do
   # Pods for MyTrips
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   
   target 'MyTripsTests' do
     inherit! :search_paths
