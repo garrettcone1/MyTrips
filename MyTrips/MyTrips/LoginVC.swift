@@ -69,6 +69,7 @@ class LoginVC: UIViewController {
     @objc func didTapCancel(_ sender: Any) {
         
         exitExtensionView()
+        emptySignUpInfo()
     }
     
     @IBAction func signInButton(_ sender: Any) {
@@ -205,17 +206,15 @@ class LoginVC: UIViewController {
         } else if enteredEmail == false && enteredPassword == true {
             
             alertMessage(message: "The email entered is not valid.")
-            emailTextField.text = ""
-            newPasswordTextField.text = ""
+            emptySignUpInfo()
         } else if enteredEmail == true && enteredPassword == false {
             
             alertMessage(message: "The password entered is not valid.")
-            newPasswordTextField.text = ""
+            emptySignUpInfo()
         } else {
             
             alertMessage(message: "Both the email and password are not valid.")
-            emailTextField.text = ""
-            newPasswordTextField.text = ""
+            emptySignUpInfo()
         }
     }
     
@@ -304,6 +303,13 @@ class LoginVC: UIViewController {
     }
     
     //************ Add Question mark bubble action next to password text field to let users know requirements for a password
+    func emptySignUpInfo() {
+        
+        profileImage.image = UIImage(named: "Profile Picture")
+        nameTextField.text = ""
+        emailTextField.text = ""
+        newPasswordTextField.text = ""
+    }
     
     // Set up for background and button layouts
     private func setUpLayout() {
@@ -359,9 +365,9 @@ class LoginVC: UIViewController {
         emailTextField.underlined()
         newPasswordTextField.underlined()
         
-        profileImage.layer.borderWidth = 3
+        //profileImage.layer.borderWidth = 3
         profileImage.layer.masksToBounds = false
-        profileImage.layer.borderColor = UIColor.darkGray.cgColor
+        //profileImage.layer.borderColor = UIColor.darkGray.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height / 2
         profileImage.clipsToBounds = true
         
