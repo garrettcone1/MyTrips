@@ -163,6 +163,9 @@
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPr-Gc-f7h">
                             <rect key="frame" x="97" y="407" width="107" height="39"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="39" id="10I-fD-0oA"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <state key="normal" title="Finish">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -178,28 +181,36 @@
                                 <constraint firstAttribute="width" constant="100" id="EEm-5R-mD6"/>
                             </constraints>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hsy-Az-sIf">
-                            <rect key="frame" x="111" y="178" width="79" height="24"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <state key="normal" title="Edit Photo"/>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JzV-GT-zM2">
                             <rect key="frame" x="76.000000000000014" y="21.999999999999996" width="149.33333333333337" height="39.666666666666657"/>
                             <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="30"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hsy-Az-sIf">
+                            <rect key="frame" x="105" y="178" width="90" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="CNa-vG-hFa"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="Tap to Change">
+                                <color key="titleColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="editProfilePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fvK-By-uPb"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="77f-WG-Eje" firstAttribute="trailing" secondItem="Hsy-Az-sIf" secondAttribute="trailing" constant="110" id="9zQ-z3-2mU"/>
+                        <constraint firstItem="77f-WG-Eje" firstAttribute="trailing" secondItem="Hsy-Az-sIf" secondAttribute="trailing" constant="105" id="9zQ-z3-2mU"/>
                         <constraint firstItem="Hsy-Az-sIf" firstAttribute="top" secondItem="B8U-DM-wGx" secondAttribute="bottom" constant="8" id="Lwu-tf-C3a"/>
                         <constraint firstItem="77f-WG-Eje" firstAttribute="trailing" secondItem="peR-LQ-CBc" secondAttribute="trailing" constant="37" id="LzS-72-2gO"/>
                         <constraint firstItem="JzV-GT-zM2" firstAttribute="top" secondItem="bI8-3b-9CH" secondAttribute="top" constant="22" id="Osd-CP-D1a"/>
                         <constraint firstItem="peR-LQ-CBc" firstAttribute="top" secondItem="wE5-5z-GEX" secondAttribute="bottom" constant="30" id="RF5-6e-nwL"/>
                         <constraint firstItem="wE5-5z-GEX" firstAttribute="leading" secondItem="77f-WG-Eje" secondAttribute="leading" constant="33" id="WAl-wi-O42"/>
                         <constraint firstItem="77f-WG-Eje" firstAttribute="trailing" secondItem="YPr-Gc-f7h" secondAttribute="trailing" constant="96" id="bqs-vg-xlY"/>
-                        <constraint firstItem="Hsy-Az-sIf" firstAttribute="leading" secondItem="77f-WG-Eje" secondAttribute="leading" constant="111" id="cOu-2H-GMi"/>
+                        <constraint firstItem="Hsy-Az-sIf" firstAttribute="leading" secondItem="77f-WG-Eje" secondAttribute="leading" constant="105" id="cOu-2H-GMi"/>
                         <constraint firstItem="WKU-8f-vdI" firstAttribute="top" secondItem="peR-LQ-CBc" secondAttribute="bottom" constant="30" id="dGw-mH-Cqs"/>
                         <constraint firstItem="peR-LQ-CBc" firstAttribute="leading" secondItem="77f-WG-Eje" secondAttribute="leading" constant="33" id="fXw-Ik-sUz"/>
                         <constraint firstItem="WKU-8f-vdI" firstAttribute="leading" secondItem="77f-WG-Eje" secondAttribute="leading" constant="33" id="gx0-LP-zlG"/>

@@ -29,17 +29,34 @@ class LoginVC: UIViewController {
     @IBOutlet weak var editPhotoButton: UIButton!
     @IBOutlet var extensionView: UIView!
     
+    var imagePicker: UIImagePickerController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         setUpLayout()
         setUpVideoView()
         signUpDetailLayout()
+        
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(displayImagePicker))
+        profileImage.isUserInteractionEnabled = true
+        profileImage.addGestureRecognizer(imageTap)
+        editPhotoButton.addTarget(self, action: #selector(displayImagePicker), for: .touchUpInside)
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+    }
+    
+    @objc func displayImagePicker(_ sender: Any) {
+        
+        self.present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func signInButton(_ sender: Any) {
@@ -94,12 +111,6 @@ class LoginVC: UIViewController {
         extensionView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         extensionView.alpha = 0
         
-        profileImage.layer.borderWidth = 3
-        profileImage.layer.masksToBounds = false
-        profileImage.layer.borderColor = UIColor.darkGray.cgColor
-        profileImage.layer.cornerRadius = profileImage.frame.height / 2
-        profileImage.clipsToBounds = true
-        
         UIView.animate(withDuration: 0.4) {
             
             self.extensionView.alpha = 1
@@ -132,13 +143,52 @@ class LoginVC: UIViewController {
         let enteredPassword = isPasswordValid(testPassword: newPasswordTextField.text!)
         print(enteredPassword)
         
+        guard let username = nameTextField.text else {
+            return
+        }
+        guard let email = emailTextField.text else {
+            return
+        }
+        guard let password = newPasswordTextField.text else {
+            return
+        }
+        guard let image = profileImage.image else {
+            return
+        }
+        
         if enteredEmail == true && enteredPassword == true {
             
-            Auth.auth().createUser(withEmail: emailTextField.text!, password: newPasswordTextField.text!) { (authResult, error) in
+            Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 
                 guard (authResult?.user) != nil else {
                     
                     return
+                }
+                
+                self.uploadProfilePicture(image) { (url) in
+                    
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = username
+                    changeRequest?.photoURL = url
+                    
+                    changeRequest?.commitChanges { error in
+                        
+                        if error == nil {
+                            
+                            print("User display name changed!")
+                            
+                            self.saveProfile(username: username, profileImageURL: url!) { (success) in
+                                
+                                if success {
+                                    
+                                    self.exitExtensionView()
+                                }
+                            }
+                        } else {
+                            
+                            print("Error: \(String(describing: error))")
+                        }
+                    }
                 }
             }
         } else if enteredEmail == false && enteredPassword == true {
@@ -155,6 +205,83 @@ class LoginVC: UIViewController {
             alertMessage(message: "Both the email and password are not valid.")
             emailTextField.text = ""
             newPasswordTextField.text = ""
+        }
+    }
+    
+    func uploadProfilePicture(_ image: UIImage?, completion: @escaping((_ url: URL?) -> ())) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else {
+            
+            return
+        }
+        
+        let storageReference = Storage.storage().reference().child("user/\(uid)")
+        
+        guard let imageData = image?.jpegData(compressionQuality: 0.75) else {
+            
+            return
+        }
+        
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        storageReference.putData(imageData, metadata: metaData) { (metaData, error) in
+            
+            if error == nil, metaData != nil {
+                
+                storageReference.downloadURL { (url, error) in
+                    
+                    if error != nil {
+                        completion(nil)
+                    } else {
+                        completion(url)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    @IBAction func editProfilePicture(_ sender: Any) {
+        
+        //pickMyImage(sourceType: .photoLibrary)
+    }
+    
+//    func pickMyImage(sourceType: UIImagePickerController.SourceType) {
+//        let imagePickerAction = UIImagePickerController()
+//        imagePickerAction.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+//        imagePickerAction.sourceType = sourceType
+//        self.present(imagePickerAction, animated: true, completion: nil)
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//
+//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//
+//            profileImage.image = image
+//            dismiss(animated: true, completion: nil)
+//        }
+//    }
+    
+    func saveProfile(username: String, profileImageURL: URL, completion: @escaping((_ success: Bool)->())) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else {
+            
+            return
+        }
+        
+        let databaseRef = Database.database().reference().child("users/profile/\(uid)")
+        
+        let userObject = [
+            
+            "username": username,
+            "photoURL": profileImageURL.absoluteString
+        ] as [String: Any]
+        
+        databaseRef.setValue(userObject) { (error, ref) in
+            
+            completion(error == nil)
         }
     }
     
@@ -239,6 +366,12 @@ class LoginVC: UIViewController {
         emailTextField.underlined()
         newPasswordTextField.underlined()
         
+        profileImage.layer.borderWidth = 3
+        profileImage.layer.masksToBounds = false
+        profileImage.layer.borderColor = UIColor.darkGray.cgColor
+        profileImage.layer.cornerRadius = profileImage.frame.height / 2
+        profileImage.clipsToBounds = true
+        
         finishedButton.layer.cornerRadius = 10
         finishedButton.layer.borderWidth = 2
         finishedButton.layer.borderColor = UIColor.white.cgColor
@@ -257,5 +390,23 @@ extension UITextField {
         border.borderWidth = width
         self.layer.addSublayer(border)
         self.layer.masksToBounds = true
+    }
+}
+
+extension LoginVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            
+            self.profileImage.image = pickedImage
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
     }
 }
