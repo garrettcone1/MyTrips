@@ -57,6 +57,7 @@ class LoginVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        exitExtensionView()
     }
     
     // Show the image picker
@@ -112,7 +113,6 @@ class LoginVC: UIViewController {
         
         createNewUser()
         
-        exitExtensionView()
     }
     
     // Animate the extension view
@@ -192,7 +192,15 @@ class LoginVC: UIViewController {
                                 self.saveProfile(username: username, profileImageURL: url!) { (success) in
                                 
                                     if success {
-                                        self.dismiss(animated: true, completion: nil)
+                                        
+                                        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+                                            
+                                            if error == nil && user != nil {
+                                                
+                                                self.performSegue(withIdentifier: "toTabBarFromExtension", sender: self)
+                                                print("User created and logged in successfully!")
+                                            }
+                                        }
                                     }
                                 }
                             } else {
@@ -257,10 +265,7 @@ class LoginVC: UIViewController {
     
     func saveProfile(username: String, profileImageURL: URL, completion: @escaping((_ success: Bool)->())) {
         
-        guard let uid = Auth.auth().currentUser?.uid else {
-            
-            return
-        }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
         let databaseRef = Database.database().reference().child("users/profile/\(uid)")
         
@@ -276,7 +281,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    // Alert message function for valid/invalid email and/or passwords
+    // Alert message function for valid/invalid email and/or password
     public func alertMessage(message: String) {
         
         let alert = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertController.Style.alert)
@@ -288,9 +293,7 @@ class LoginVC: UIViewController {
     func isEmailValid(testString: String) -> Bool {
         
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        
         return emailTest.evaluate(with: testString)
     }
     
@@ -298,7 +301,6 @@ class LoginVC: UIViewController {
     func isPasswordValid(testPassword: String) -> Bool {
         
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$")
-        
         return passwordTest.evaluate(with: testPassword)
     }
     
@@ -365,9 +367,7 @@ class LoginVC: UIViewController {
         emailTextField.underlined()
         newPasswordTextField.underlined()
         
-        //profileImage.layer.borderWidth = 3
         profileImage.layer.masksToBounds = false
-        //profileImage.layer.borderColor = UIColor.darkGray.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height / 2
         profileImage.clipsToBounds = true
         

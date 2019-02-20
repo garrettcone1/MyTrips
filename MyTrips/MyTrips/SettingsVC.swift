@@ -16,4 +16,11 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
         
     }
+    
+    @IBAction func logOutButton(_ sender: Any) {
+        
+        try! Auth.auth().signOut()
+        print("User successfully logged out!")
+        self.dismiss(animated: true, completion: nil)
+    }
 }

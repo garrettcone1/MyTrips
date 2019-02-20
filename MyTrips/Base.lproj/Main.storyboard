@@ -39,7 +39,7 @@
                                         </state>
                                         <connections>
                                             <action selector="signInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sMX-HP-CEm"/>
-                                            <segue destination="r1h-hn-W5L" kind="presentation" modalPresentationStyle="overCurrentContext" id="bkq-Da-Ft3"/>
+                                            <segue destination="r1h-hn-W5L" kind="presentation" identifier="toTabBarFromSignIn" id="bkq-Da-Ft3"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U6c-AZ-1L3">
@@ -199,6 +199,7 @@
                             </state>
                             <connections>
                                 <action selector="finishedSigningUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BES-4A-Xfu"/>
+                                <segue destination="r1h-hn-W5L" kind="presentation" identifier="toTabBarFromExtension" id="nC1-Df-13v"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Toc-Re-roa">
@@ -247,7 +248,20 @@
                     <view key="view" contentMode="scaleToFill" id="2zQ-WF-F9G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6b-f1-0Pi">
+                                <rect key="frame" x="116" y="389" width="143" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="logOutButton:" destination="R6R-C2-Exv" eventType="touchUpInside" id="Okd-NR-2jT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mB3-3f-ZL5"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="eMh-aC-VSM">
@@ -265,7 +279,7 @@
                     <view key="view" contentMode="scaleToFill" id="4Ii-iP-yCh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gTh-lZ-fwV"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Trips" id="BXb-ui-EQH">
@@ -305,7 +319,7 @@
                     <view key="view" contentMode="scaleToFill" id="nxi-BO-apZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="P42-gL-oCA"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Home" id="Ebc-j2-CRI">
@@ -323,7 +337,7 @@
                     <view key="view" contentMode="scaleToFill" id="tCD-aU-lpQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="nPF-aG-0Yn"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Groups" id="wSO-Cq-j3U">
@@ -344,4 +358,7 @@
         <image name="Trips" width="26.25" height="26.25"/>
         <image name="WorldMap" width="258" height="257"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="nC1-Df-13v"/>
+    </inferredMetricsTieBreakers>
 </document>
