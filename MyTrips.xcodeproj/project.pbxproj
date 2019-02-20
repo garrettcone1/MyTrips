@@ -22,7 +22,6 @@
 		4A9F99162215E48600C38909 /* GroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99152215E48600C38909 /* GroupsVC.swift */; };
 		4A9F99182215E4B100C38909 /* TripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99172215E4B100C38909 /* TripsVC.swift */; };
 		4A9F991A2215E4C500C38909 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99192215E4C500C38909 /* SettingsVC.swift */; };
-		4A9F991C2216430D00C38909 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F991B2216430D00C38909 /* UserData.swift */; };
 		A4E4AFB590F76DE12720E181 /* Pods_MyTripsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11652E4B4966BC88D4E9CA16 /* Pods_MyTripsUITests.framework */; };
 		AEAF402E867B42D6A41A54F3 /* Pods_MyTripsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EAC89DCB740AC448D7BE4D4 /* Pods_MyTripsTests.framework */; };
 /* End PBXBuildFile section */
@@ -68,7 +67,6 @@
 		4A9F99152215E48600C38909 /* GroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsVC.swift; sourceTree = "<group>"; };
 		4A9F99172215E4B100C38909 /* TripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsVC.swift; sourceTree = "<group>"; };
 		4A9F99192215E4C500C38909 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
-		4A9F991B2216430D00C38909 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		58EC78E50E1A809CFCECBC05 /* Pods-MyTrips.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTrips.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTrips/Pods-MyTrips.release.xcconfig"; sourceTree = "<group>"; };
 		6EAC89DCB740AC448D7BE4D4 /* Pods_MyTripsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTripsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD48218D31E690E087F69025 /* Pods-MyTripsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTripsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTripsTests/Pods-MyTripsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -187,7 +185,6 @@
 				4A9F99152215E48600C38909 /* GroupsVC.swift */,
 				4A9F99172215E4B100C38909 /* TripsVC.swift */,
 				4A9F99192215E4C500C38909 /* SettingsVC.swift */,
-				4A9F991B2216430D00C38909 /* UserData.swift */,
 			);
 			path = MyTrips;
 			sourceTree = "<group>";
@@ -441,7 +438,6 @@
 			files = (
 				4A1FE3B42210154900739396 /* LoginVC.swift in Sources */,
 				4A9F99182215E4B100C38909 /* TripsVC.swift in Sources */,
-				4A9F991C2216430D00C38909 /* UserData.swift in Sources */,
 				4A1FE3E522101AD100739396 /* GCDBlackBox.swift in Sources */,
 				4A9F99142215E47A00C38909 /* HomePageVC.swift in Sources */,
 				4A1FE3B22210154900739396 /* AppDelegate.swift in Sources */,
