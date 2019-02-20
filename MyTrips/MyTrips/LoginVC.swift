@@ -27,6 +27,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var finishedButton: UIButton!
     @IBOutlet weak var editPhotoButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet var extensionView: UIView!
     
     var imagePicker: UIImagePickerController!
@@ -38,15 +39,19 @@ class LoginVC: UIViewController {
         setUpVideoView()
         signUpDetailLayout()
         
-        let imageTap = UITapGestureRecognizer(target: self, action: #selector(displayImagePicker))
+        let profileImageTap = UITapGestureRecognizer(target: self, action: #selector(displayImagePicker))
         profileImage.isUserInteractionEnabled = true
-        profileImage.addGestureRecognizer(imageTap)
+        profileImage.addGestureRecognizer(profileImageTap)
         editPhotoButton.addTarget(self, action: #selector(displayImagePicker), for: .touchUpInside)
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
+        
+        let cancelButtonTapped = UITapGestureRecognizer(target: self, action: #selector(didTapCancel))
+        cancelButton.addGestureRecognizer(cancelButtonTapped)
+        cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,9 +59,16 @@ class LoginVC: UIViewController {
         
     }
     
+    // Show the image picker
     @objc func displayImagePicker(_ sender: Any) {
         
         self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // Exit the extension view by clicking on the cancel button
+    @objc func didTapCancel(_ sender: Any) {
+        
+        exitExtensionView()
     }
     
     @IBAction func signInButton(_ sender: Any) {
@@ -134,9 +146,6 @@ class LoginVC: UIViewController {
     // Create the new user with the provided information for Firebase
     func createNewUser() {
         
-        // Save name for future use
-        
-        
         // Test if the email text field input is a valid email
         let enteredEmail = isEmailValid(testString: emailTextField.text!)
         print(enteredEmail)
@@ -158,6 +167,7 @@ class LoginVC: UIViewController {
         
         if enteredEmail == true && enteredPassword == true {
             
+            // Create the user for Firebase with the entered email and password
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 
                 guard (authResult?.user) != nil else {
@@ -167,26 +177,27 @@ class LoginVC: UIViewController {
                 
                 self.uploadProfilePicture(image) { (url) in
                     
-                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                    changeRequest?.displayName = username
-                    changeRequest?.photoURL = url
+                    if url != nil {
+                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                        changeRequest?.displayName = username
+                        changeRequest?.photoURL = url
                     
-                    changeRequest?.commitChanges { error in
+                        changeRequest?.commitChanges { error in
                         
-                        if error == nil {
+                            if error == nil {
                             
-                            print("User display name changed!")
+                                print("User display name changed!")
                             
-                            self.saveProfile(username: username, profileImageURL: url!) { (success) in
+                                self.saveProfile(username: username, profileImageURL: url!) { (success) in
                                 
-                                if success {
-                                    
-                                    self.exitExtensionView()
+                                    if success {
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
                                 }
-                            }
-                        } else {
+                            } else {
                             
-                            print("Error: \(String(describing: error))")
+                                print("Error: \(String(describing: error))")
+                            }
                         }
                     }
                 }
@@ -232,9 +243,9 @@ class LoginVC: UIViewController {
                 storageReference.downloadURL { (url, error) in
                     
                     if error != nil {
-                        completion(nil)
-                    } else {
                         completion(url)
+                    } else {
+                        completion(nil)
                     }
                 }
             } else {
@@ -243,26 +254,7 @@ class LoginVC: UIViewController {
         }
     }
     
-    @IBAction func editProfilePicture(_ sender: Any) {
-        
-        //pickMyImage(sourceType: .photoLibrary)
-    }
-    
-//    func pickMyImage(sourceType: UIImagePickerController.SourceType) {
-//        let imagePickerAction = UIImagePickerController()
-//        imagePickerAction.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
-//        imagePickerAction.sourceType = sourceType
-//        self.present(imagePickerAction, animated: true, completion: nil)
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//
-//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//
-//            profileImage.image = image
-//            dismiss(animated: true, completion: nil)
-//        }
-//    }
+    @IBAction func editProfilePicture(_ sender: Any) {}
     
     func saveProfile(username: String, profileImageURL: URL, completion: @escaping((_ success: Bool)->())) {
         
@@ -285,6 +277,7 @@ class LoginVC: UIViewController {
         }
     }
     
+    // Alert message function for valid/invalid email and/or passwords
     public func alertMessage(message: String) {
         
         let alert = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertController.Style.alert)
