@@ -60,6 +60,15 @@ class LoginVC: UIViewController {
         exitExtensionView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let user = Auth.auth().currentUser {
+            print(user)
+            self.performSegue(withIdentifier: "toTabBarFromSignIn", sender: self)
+        }
+    }
+    
     // Show the image picker
     @objc func displayImagePicker(_ sender: Any) {
         
@@ -75,32 +84,7 @@ class LoginVC: UIViewController {
     
     @IBAction func signInButton(_ sender: Any) {
         
-//        let enteredEmail = isEmailValid(testString: usernameTextField.text!)
-//        print(enteredEmail)
-//        let enteredPassword = isPasswordValid(testPassword: passwordTextField.text!)
-//        print(enteredPassword)
-//
-//        if enteredEmail == true && enteredPassword == true {
-//            
-//            Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { (user, error) in
-//
-//                // Check for errors
-//            }
-//        } else if enteredEmail == false && enteredPassword == true {
-//
-//            alertMessage(message: "The email entered is not valid.")
-//            usernameTextField.text = ""
-//            passwordTextField.text = ""
-//        } else if enteredEmail == true && enteredPassword == false {
-//
-//            alertMessage(message: "The password entered is not valid.")
-//            passwordTextField.text = ""
-//        } else {
-//
-//            alertMessage(message: "Both the email and password are not valid.")
-//            usernameTextField.text = ""
-//            passwordTextField.text = ""
-//        }
+        //signInUser()
     }
     
     // Animate the extension view
@@ -112,7 +96,6 @@ class LoginVC: UIViewController {
     @IBAction func finishedSigningUp(_ sender: Any) {
         
         createNewUser()
-        
     }
     
     // Animate the extension view
@@ -141,6 +124,61 @@ class LoginVC: UIViewController {
         }) { (success: Bool) in
         
             self.extensionView.removeFromSuperview()
+        }
+    }
+    
+    func signInUser() {
+        
+        let enteredEmail = isEmailValid(testString: usernameTextField.text!)
+        print(enteredEmail)
+        let enteredPassword = isPasswordValid(testPassword: passwordTextField.text!)
+        print(enteredPassword)
+        
+        guard let email = usernameTextField.text else {
+            return
+        }
+        
+        guard let password = passwordTextField.text else {
+            return
+        }
+        
+        if enteredEmail == true && enteredPassword == true {
+            
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+            changeRequest?.commitChanges { (error) in
+                
+                if error == nil {
+                    
+                    Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+                        
+                        // Check for errors
+                        if error == nil && user != nil {
+                            
+                            self.performSegue(withIdentifier: "toTabBarFromSignIn", sender: self)
+                            print("User created and logged in successfully!")
+                        } else {
+                            
+                            self.alertMessage(message: "Error logging in: \(String(describing: error))")
+                            
+                        }
+                    }
+                }
+            }
+        } else if enteredEmail == false && enteredPassword == true {
+            
+            alertMessage(message: "The email entered is not valid.")
+            usernameTextField.text = ""
+            passwordTextField.text = ""
+        } else if enteredEmail == true && enteredPassword == false {
+            
+            alertMessage(message: "The password entered is not valid.")
+            usernameTextField.text = ""
+            passwordTextField.text = ""
+        } else {
+            
+            alertMessage(message: "Both the email and password are not valid.")
+            usernameTextField.text = ""
+            passwordTextField.text = ""
         }
     }
     
@@ -290,7 +328,7 @@ class LoginVC: UIViewController {
     }
     
     // Check if email string entered is a valid email format
-    func isEmailValid(testString: String) -> Bool {
+    public func isEmailValid(testString: String) -> Bool {
         
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
@@ -298,7 +336,7 @@ class LoginVC: UIViewController {
     }
     
     // Check if password string entered is a valid password format (Has an uppercase, lowercase, a number and is at least 8 characters long)
-    func isPasswordValid(testPassword: String) -> Bool {
+    public func isPasswordValid(testPassword: String) -> Bool {
         
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$")
         return passwordTest.evaluate(with: testPassword)

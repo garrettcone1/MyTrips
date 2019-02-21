@@ -39,7 +39,7 @@
                                         </state>
                                         <connections>
                                             <action selector="signInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sMX-HP-CEm"/>
-                                            <segue destination="r1h-hn-W5L" kind="presentation" identifier="toTabBarFromSignIn" id="bkq-Da-Ft3"/>
+                                            <segue destination="r1h-hn-W5L" kind="presentation" identifier="toTabBarFromSignIn" id="9Ia-2e-GeF"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U6c-AZ-1L3">
@@ -239,7 +239,7 @@
                     <viewLayoutGuide key="safeArea" id="77f-WG-Eje"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="135.19999999999999" y="132.26600985221674"/>
+            <point key="canvasLocation" x="142" y="132"/>
         </scene>
         <!--SettingsVC-->
         <scene sceneID="4gc-Ks-oDR">
@@ -270,7 +270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fYm-Ao-3jg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1823.2" y="892.61083743842369"/>
+            <point key="canvasLocation" x="1825" y="641"/>
         </scene>
         <!--TripsVC-->
         <scene sceneID="87p-3o-iTw">
@@ -288,7 +288,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjL-fJ-nxh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2662" y="433"/>
+            <point key="canvasLocation" x="2494" y="409"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="t32-mw-mdg">
@@ -328,7 +328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEi-e6-Gnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1825" y="-518"/>
+            <point key="canvasLocation" x="1825" y="-546"/>
         </scene>
         <!--GroupsVC-->
         <scene sceneID="1aJ-eI-YhH">
@@ -346,7 +346,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57m-TW-CQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2663" y="-217"/>
+            <point key="canvasLocation" x="2494" y="-232"/>
         </scene>
     </scenes>
     <resources>
@@ -359,6 +359,6 @@
         <image name="WorldMap" width="258" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nC1-Df-13v"/>
+        <segue reference="9Ia-2e-GeF"/>
     </inferredMetricsTieBreakers>
 </document>
