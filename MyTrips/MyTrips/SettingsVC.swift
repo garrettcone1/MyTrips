@@ -21,6 +21,5 @@ class SettingsVC: UIViewController {
         
         try! Auth.auth().signOut()
         print("User successfully logged out!")
-        self.dismiss(animated: true, completion: nil)
     }
 }

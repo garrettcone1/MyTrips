@@ -62,11 +62,6 @@ class LoginVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let user = Auth.auth().currentUser {
-            print(user)
-            self.performSegue(withIdentifier: "toTabBarFromSignIn", sender: self)
-        }
     }
     
     // Show the image picker
@@ -84,7 +79,7 @@ class LoginVC: UIViewController {
     
     @IBAction func signInButton(_ sender: Any) {
         
-        //signInUser()
+        signInUser()
     }
     
     // Animate the extension view
@@ -143,25 +138,16 @@ class LoginVC: UIViewController {
         }
         
         if enteredEmail == true && enteredPassword == true {
-            
-            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-            changeRequest?.commitChanges { (error) in
-                
-                if error == nil {
-                    
-                    Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+    
+            Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
                         
-                        // Check for errors
-                        if error == nil && user != nil {
-                            
-                            self.performSegue(withIdentifier: "toTabBarFromSignIn", sender: self)
-                            print("User created and logged in successfully!")
-                        } else {
-                            
-                            self.alertMessage(message: "Error logging in: \(String(describing: error))")
-                            
-                        }
-                    }
+                // Check for errors
+                if error == nil && user != nil {
+                    
+                    print("User signed in successfully!")
+                } else {
+                    
+                    self.emptySignInInfo(message: "This user does not exist, sign up below!")
                 }
             }
         } else if enteredEmail == false && enteredPassword == true {
@@ -235,8 +221,12 @@ class LoginVC: UIViewController {
                                             
                                             if error == nil && user != nil {
                                                 
-                                                self.performSegue(withIdentifier: "toTabBarFromExtension", sender: self)
                                                 print("User created and logged in successfully!")
+                                            } else {
+                                                
+                                                let alert = UIAlertController(title: "Error Logging In", message: nil, preferredStyle: .alert)
+                                                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                                                self.present(alert, animated: true, completion: nil)
                                             }
                                         }
                                     }
@@ -343,6 +333,17 @@ class LoginVC: UIViewController {
     }
     
     //************ Add Question mark bubble action next to password text field to let users know requirements for a password
+    
+    func emptySignInInfo(message: String) {
+        
+        let alert = UIAlertController(title: "Error Logging In", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
+        usernameTextField.text = ""
+        passwordTextField.text = ""
+    }
+    
     func emptySignUpInfo() {
         
         profileImage.image = UIImage(named: "Profile Picture")
@@ -435,6 +436,8 @@ extension LoginVC: UIImagePickerControllerDelegate, UINavigationControllerDelega
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
         picker.dismiss(animated: true, completion: nil)
+        
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

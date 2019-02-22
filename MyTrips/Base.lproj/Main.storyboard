@@ -13,7 +13,7 @@
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="MyTrips" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="BYZ-38-t0r" customClass="LoginVC" customModule="MyTrips" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,7 +39,6 @@
                                         </state>
                                         <connections>
                                             <action selector="signInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sMX-HP-CEm"/>
-                                            <segue destination="r1h-hn-W5L" kind="presentation" identifier="toTabBarFromSignIn" id="9Ia-2e-GeF"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U6c-AZ-1L3">
@@ -199,7 +198,6 @@
                             </state>
                             <connections>
                                 <action selector="finishedSigningUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BES-4A-Xfu"/>
-                                <segue destination="r1h-hn-W5L" kind="presentation" identifier="toTabBarFromExtension" id="nC1-Df-13v"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Toc-Re-roa">
@@ -290,10 +288,10 @@
             </objects>
             <point key="canvasLocation" x="2494" y="409"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--TabBarController-->
         <scene sceneID="t32-mw-mdg">
             <objects>
-                <tabBarController id="r1h-hn-W5L" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" title="TabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="r1h-hn-W5L" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cFy-se-Ebw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -358,7 +356,4 @@
         <image name="Trips" width="26.25" height="26.25"/>
         <image name="WorldMap" width="258" height="257"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="9Ia-2e-GeF"/>
-    </inferredMetricsTieBreakers>
 </document>
