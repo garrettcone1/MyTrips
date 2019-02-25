@@ -11,14 +11,16 @@ import AVFoundation
 import AVKit
 import Firebase
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UITextFieldDelegate {
 
     // Outlets for LoginVC
+    @IBOutlet weak var myTripsTitle: UILabel!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var clearView: UIView!
     @IBOutlet weak var backgroundVideoView: UIView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var myTripsLogo: UIImageView!
     
     // Outlets for popup view
     @IBOutlet weak var nameTextField: UITextField!
@@ -49,19 +51,26 @@ class LoginVC: UIViewController {
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+        
         let cancelButtonTapped = UITapGestureRecognizer(target: self, action: #selector(didTapCancel))
         cancelButton.addGestureRecognizer(cancelButtonTapped)
         cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        exitExtensionView()
+        subscribeToKeyboardNotifications()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        unsubscribeFromKeyboardNotifications()
     }
     
     // Show the image picker
@@ -147,7 +156,7 @@ class LoginVC: UIViewController {
                     print("User signed in successfully!")
                 } else {
                     
-                    self.emptySignInInfo(message: "This user does not exist, sign up below!")
+                    self.emptySignInInfo(message: "This user does not exist, Sign Up below!")
                 }
             }
         } else if enteredEmail == false && enteredPassword == true {
@@ -352,6 +361,70 @@ class LoginVC: UIViewController {
         newPasswordTextField.text = ""
     }
     
+    func subscribeToKeyboardNotifications() {
+        
+        //usernameTextField.becomeFirstResponder()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // Adjusts the keyboard with the view
+    @objc func keyboardWillAppear(_ notification: Notification) {
+     
+        let userInfo = notification.userInfo!
+        let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        if usernameTextField.isFirstResponder {
+            
+            myTripsTitle.isHidden = true
+            myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
+            usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
+            passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
+        }
+
+        if passwordTextField.becomeFirstResponder() {
+
+            myTripsTitle.isHidden = true
+            myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
+            usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
+            passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
+        }
+        
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+
+        myTripsTitle.isHidden = false
+        myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
+        usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: usernameTextField.center.y + 70.0)
+        passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: passwordTextField.center.y + 66.0)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        switch textField {
+            
+        case usernameTextField:
+            usernameTextField.resignFirstResponder()
+            break
+        case passwordTextField:
+            unsubscribeFromKeyboardNotifications()
+            break
+            
+        default:
+            break
+        }
+        return true
+    }
+    
     // Set up for background and button layouts
     private func setUpLayout() {
         
@@ -418,7 +491,7 @@ class LoginVC: UIViewController {
 
 extension UITextField {
     
-    // This function is reused for both usernameTextField and passwordTextField to create an underline
+    // This function is reused for all textfields to make it underlined
     func underlined() {
         
         let border = CALayer()
@@ -436,8 +509,6 @@ extension LoginVC: UIImagePickerControllerDelegate, UINavigationControllerDelega
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
         picker.dismiss(animated: true, completion: nil)
-        
-        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
