@@ -12,6 +12,8 @@ import Firebase
 
 class TripsVC: UIViewController {
     
+    let dateFormatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
