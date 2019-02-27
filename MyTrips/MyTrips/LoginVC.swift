@@ -87,7 +87,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signInButton(_ sender: Any) {
-        
+
         signInUser()
     }
     
@@ -131,6 +131,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // Sign in an existing user with the provided information for Firebase
     func signInUser() {
         
         let enteredEmail = isEmailValid(testString: usernameTextField.text!)
