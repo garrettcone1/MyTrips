@@ -11,6 +11,8 @@ target 'MyTrips' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   
+  pod 'JTAppleCalendar', '~> 7.0'
+  
   target 'MyTripsTests' do
     inherit! :search_paths
     # Pods for testing
