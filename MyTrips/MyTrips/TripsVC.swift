@@ -34,6 +34,7 @@ class TripsVC: UIViewController {
         // Setup calendar spacing
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
+        calendarView.layer.cornerRadius = 20
         
         // Setup month and year labels
         calendarView.visibleDates { (visibleDates) in
@@ -92,12 +93,11 @@ extension TripsVC: JTAppleCalendarViewDataSource {
         dateFormatter.locale = Calendar.current.locale
         
         let startDate = dateFormatter.date(from: "2019 01 01")!
-        let endDate = dateFormatter.date(from: "2022 12 31")!
+        let endDate = dateFormatter.date(from: "2025 12 31")!
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
         return parameters
     }
-    
 }
 
 extension TripsVC: JTAppleCalendarViewDelegate {
