@@ -34,7 +34,6 @@ class TripsVC: UIViewController {
         // Setup calendar spacing
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
-        calendarView.layer.cornerRadius = 20
         
         // Setup month and year labels
         calendarView.visibleDates { (visibleDates) in

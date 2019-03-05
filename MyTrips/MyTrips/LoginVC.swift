@@ -13,7 +13,7 @@ import Firebase
 
 class LoginVC: UIViewController, UITextFieldDelegate {
 
-    // Outlets for LoginVC
+    // Outlets for sign in
     @IBOutlet weak var myTripsTitle: UILabel!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var clearView: UIView!
@@ -22,7 +22,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var myTripsLogo: UIImageView!
     
-    // Outlets for popup view
+    // Outlets for sign up extension view
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
