@@ -12,7 +12,7 @@ import AVKit
 import Firebase
 
 class LoginVC: UIViewController, UITextFieldDelegate {
-
+    
     // Outlets for sign in
     @IBOutlet weak var myTripsTitle: UILabel!
     @IBOutlet weak var signInButton: UIButton!
@@ -36,7 +36,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         setUpLayout()
         setUpVideoView()
         signUpDetailLayout()
@@ -87,7 +87,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signInButton(_ sender: Any) {
-
+        
         signInUser()
     }
     
@@ -126,7 +126,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             self.extensionView.alpha = 0
             
         }) { (success: Bool) in
-        
+            
             self.extensionView.removeFromSuperview()
         }
     }
@@ -142,15 +142,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         guard let email = usernameTextField.text else {
             return
         }
-        
         guard let password = passwordTextField.text else {
             return
         }
         
         if enteredEmail == true && enteredPassword == true {
-    
+            
             Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                        
+                
                 // Check for errors
                 if error == nil && user != nil {
                     
@@ -205,45 +204,28 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             // Create the user for Firebase with the entered email and password
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 
-                guard (authResult?.user) != nil else {
-                    
-                    return
-                }
+                guard let user = (authResult?.user) else { return }
                 
                 self.uploadProfilePicture(image) { (url) in
                     
                     if url != nil {
-                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.displayName = username
-                        changeRequest?.photoURL = url
-                    
-                        changeRequest?.commitChanges { error in
                         
-                            if error == nil {
+                        self.saveProfile(username: username, profileImageURL: url!, userId: user.uid) { (success) in
                             
-                                print("User display name changed!")
-                            
-                                self.saveProfile(username: username, profileImageURL: url!) { (success) in
+                            if success {
                                 
-                                    if success {
+                                Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+                                    
+                                    if error == nil && user != nil {
                                         
-                                        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                                            
-                                            if error == nil && user != nil {
-                                                
-                                                print("User created and logged in successfully!")
-                                            } else {
-                                                
-                                                let alert = UIAlertController(title: "Error Logging In", message: nil, preferredStyle: .alert)
-                                                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-                                                self.present(alert, animated: true, completion: nil)
-                                            }
-                                        }
+                                        print("User created and logged in successfully!")
+                                    } else {
+                                        
+                                        let alert = UIAlertController(title: "Error Logging In", message: nil, preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                                        self.present(alert, animated: true, completion: nil)
                                     }
                                 }
-                            } else {
-                            
-                                print("Error: \(String(describing: error))")
                             }
                         }
                     }
@@ -251,72 +233,62 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             }
         } else if enteredEmail == false && enteredPassword == true {
             
-            alertMessage(message: "The email entered is not valid.")
+            alertMessage(message: "Invalid Login Credentials")
             emptySignUpInfo()
         } else if enteredEmail == true && enteredPassword == false {
             
-            alertMessage(message: "The password entered is not valid.")
+            alertMessage(message: "Invalid Login Credentials")
             emptySignUpInfo()
         } else {
             
-            alertMessage(message: "Both the email and password are not valid.")
+            alertMessage(message: "Invalid Login Credentials")
             emptySignUpInfo()
         }
     }
     
     func uploadProfilePicture(_ image: UIImage?, completion: @escaping((_ url: URL?) -> ())) {
         
-        guard let uid = Auth.auth().currentUser?.uid else {
-            
-            return
-        }
+        guard let uid = Auth.auth().currentUser?.uid,
+            let imageData = image?.jpegData(compressionQuality: 0.75) else { return }
         
         let storageReference = Storage.storage().reference().child("user/\(uid)")
-        
-        guard let imageData = image?.jpegData(compressionQuality: 0.75) else {
-            
-            return
-        }
         
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpg"
         
         storageReference.putData(imageData, metadata: metaData) { (metaData, error) in
             
-            if error == nil, metaData != nil {
-                
-                storageReference.downloadURL { (url, error) in
+            if error != nil {
                     
-                    if error != nil {
-                        completion(url)
-                    } else {
-                        completion(nil)
-                    }
-                }
-            } else {
                 completion(nil)
+                return
+            }
+            
+            storageReference.downloadURL { (url, error) in
+                
+                if error != nil {
+                    
+                    completion(nil)
+                    return
+                }
+                completion(url)
             }
         }
     }
     
     @IBAction func editProfilePicture(_ sender: Any) {}
     
-    func saveProfile(username: String, profileImageURL: URL, completion: @escaping((_ success: Bool)->())) {
+    func saveProfile(username: String, profileImageURL: URL, userId: String?, completion: @escaping((_ success: Bool)->())) {
         
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = userId else { return }
         
-        let databaseRef = Database.database().reference().child("users/profile/\(uid)")
+        let databaseRef = Database.database().reference().child("users/\(uid)")
         
         let userObject = [
-            
             "username": username,
             "photoURL": profileImageURL.absoluteString
-        ] as [String: Any]
-        
-        databaseRef.setValue(userObject) { (error, ref) in
-            
-            completion(error == nil)
-        }
+        ]
+        databaseRef.updateChildValues(userObject)
     }
     
     // Alert message function for valid/invalid email and/or password
@@ -379,7 +351,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     // Adjusts the keyboard with the view
     @objc func keyboardWillAppear(_ notification: Notification) {
-     
+        
         let userInfo = notification.userInfo!
         let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
@@ -390,19 +362,18 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
             passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
         }
-
+        
         if passwordTextField.becomeFirstResponder() {
-
+            
             myTripsTitle.isHidden = true
             myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
             usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
             passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
         }
-        
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
-
+        
         myTripsTitle.isHidden = false
         myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
         usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: usernameTextField.center.y + 70.0)

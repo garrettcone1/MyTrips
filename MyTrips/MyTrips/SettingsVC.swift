@@ -34,8 +34,12 @@ class SettingsVC: UIViewController {
         storage = Storage.storage()
         
         //var picArray = [UIImage]()
+        guard let uid = Auth.auth().currentUser?.uid else {
+            
+            return
+        }
         
-        let dbRef = database.reference().child("user")
+        let dbRef = database.reference().child("user/\(uid)")
         dbRef.observe(.childAdded, with: { (snapshot) in
             
             let downloadURL = snapshot.value as! String
