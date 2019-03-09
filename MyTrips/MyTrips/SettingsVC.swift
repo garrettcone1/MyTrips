@@ -15,81 +15,64 @@ class SettingsVC: UIViewController {
     // Outlets
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var lightOrDarkTheme: UIButton!
+    @IBOutlet weak var usernameLabel: UILabel!
     
     var database: Database!
     var storage: Storage!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpView()
+        setUpProfileInfo()
     }
     
-    // **************** download is not working right now
-    func setUpView() {
+    func setUpProfileInfo() {
         
-        database = Database.database()
-        storage = Storage.storage()
-        
-        //var picArray = [UIImage]()
-        guard let uid = Auth.auth().currentUser?.uid else {
+        if Auth.auth().currentUser?.uid == nil {
             
-            return
-        }
-        
-        let dbRef = database.reference().child("user/\(uid)")
-        dbRef.observe(.childAdded, with: { (snapshot) in
+            try! Auth.auth().signOut()
+        } else {
             
-            let downloadURL = snapshot.value as! String
+            guard let uid = Auth.auth().currentUser?.uid else { return }
             
-            let storageRef = self.storage.reference(forURL: downloadURL)
+            let storageRef = Storage.storage().reference().child("user/\(uid)")
             
-            storageRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+            storageRef.downloadURL { (url, error) in
                 
-                let pic = UIImage(data: data!)
-                //picArray.append(pic!)
-                self.profileImageView.image = pic
+                if error != nil {
+                    
+                    print(error!)
+                    return
+                } else {
+                    
+                    if let urlPath = url {
+                        // Debugger skips over checking the error??????
+                        URLSession.shared.dataTask(with: urlPath, completionHandler: { (data, response, error) in
+                            
+                            if error != nil {
+                                
+                                print(error!)
+                                return
+                            } else {
+                                
+                                // No error found, go and set the image
+                                perforumUIUpdatesOnMain {
+                                    
+                                    self.profileImageView.image = UIImage(data: data!)
+                                }
+                            }
+                        }).resume()
+                    }
+                }
             }
-        })
-    }
-    
-    func testPhotoDownload() {
-        
-        guard let uid = Auth.auth().currentUser?.uid else {
-            
-            return
-        }
-        
-        let storageReference = Storage.storage().reference().child("user/\(uid)")
-        
-        storageReference.getData(maxSize: 64) { (data, error) in
-            
-            if let data = data {
-                
-                self.profileImageView.image = UIImage(data: data)
-            }
-        }
-    }
-    
-    func getData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> ()) {
-        
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    func downloadImage(url: URL) {
-        
-        getData(from: url) { (data, response, error) in
-            
-            guard let data = data, error != nil else {
-                
-                return
-            }
-            
-            perforumUIUpdatesOnMain {
-                self.profileImageView.image = UIImage(data: data)
-            }
+
+            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+
+                    // Set the name text field to current user's name
+                    self.usernameLabel.text = dictionary["username"] as? String
+                }
+            })
         }
     }
     
