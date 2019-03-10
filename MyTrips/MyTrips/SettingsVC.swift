@@ -16,6 +16,7 @@ class SettingsVC: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var lightOrDarkTheme: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var backgroundView: UIImageView!
     
     var database: Database!
     var storage: Storage!
@@ -24,6 +25,7 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
         
         setUpProfileInfo()
+        setupSettingsLayout()
     }
     
     func setUpProfileInfo() {
@@ -74,6 +76,13 @@ class SettingsVC: UIViewController {
                 }
             })
         }
+    }
+    
+    private func setupSettingsLayout() {
+        
+        profileImageView.layer.masksToBounds = false
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+        profileImageView.clipsToBounds = true
     }
     
     @IBAction func logOutButton(_ sender: Any) {
