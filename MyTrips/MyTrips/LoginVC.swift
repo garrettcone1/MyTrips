@@ -41,6 +41,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         setUpVideoView()
         signUpDetailLayout()
         
+        setButton(enabled: false)
+        
         let profileImageTap = UITapGestureRecognizer(target: self, action: #selector(displayImagePicker))
         profileImage.isUserInteractionEnabled = true
         profileImage.addGestureRecognizer(profileImageTap)
@@ -68,8 +70,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        usernameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
         unsubscribeFromKeyboardNotifications()
     }
     
@@ -161,17 +161,17 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             }
         } else if enteredEmail == false && enteredPassword == true {
             
-            alertMessage(message: "The email entered is not valid.")
+            alertMessage(message: "Invalid Login Credentials")
             usernameTextField.text = ""
             passwordTextField.text = ""
         } else if enteredEmail == true && enteredPassword == false {
             
-            alertMessage(message: "The password entered is not valid.")
+            alertMessage(message: "Invalid Login Credentials")
             usernameTextField.text = ""
             passwordTextField.text = ""
         } else {
             
-            alertMessage(message: "Both the email and password are not valid.")
+            alertMessage(message: "Invalid Login Credentials")
             usernameTextField.text = ""
             passwordTextField.text = ""
         }
@@ -334,19 +334,34 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         newPasswordTextField.text = ""
     }
     
+    // Enable/disable sign in/sign up button
+    func setButton(enabled: Bool) {
+        
+        if enabled {
+            
+            finishedButton.alpha = 1.0
+            finishedButton.isEnabled = true
+        } else {
+            
+            finishedButton.alpha = 0.5
+            finishedButton.isEnabled = false
+        }
+    }
+    
     func subscribeToKeyboardNotifications() {
         
-        //usernameTextField.becomeFirstResponder()
+        usernameTextField.becomeFirstResponder()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
         
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        //NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        //NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // Adjusts the keyboard with the view
@@ -355,24 +370,32 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         let userInfo = notification.userInfo!
         let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
-        if usernameTextField.isFirstResponder {
+        //if usernameTextField.isFirstResponder {
             
             myTripsTitle.isHidden = true
             myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
             usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
             passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
-        }
+        //}
         
-        if passwordTextField.becomeFirstResponder() {
-            
-            myTripsTitle.isHidden = true
-            myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
-            usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
-            passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
-        }
+//        if passwordTextField.becomeFirstResponder() {
+//
+//            myTripsTitle.isHidden = true
+//            myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
+//            usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
+//            passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
+//        }
     }
     
-    @objc func keyboardWillHide(_ notification: Notification) {
+//    @objc func keyboardWillHide(_ notification: Notification) {
+//
+//        myTripsTitle.isHidden = false
+//        myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
+//        usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: usernameTextField.center.y + 70.0)
+//        passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: passwordTextField.center.y + 66.0)
+//    }
+    
+    func keyboardWillHide() {
         
         myTripsTitle.isHidden = false
         myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
@@ -386,9 +409,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             
         case usernameTextField:
             usernameTextField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
             break
         case passwordTextField:
-            unsubscribeFromKeyboardNotifications()
+            
+            keyboardWillHide()
+            //NotificationCenter.default.removeObserver(self)
+            //unsubscribeFromKeyboardNotifications()
             break
             
         default:
