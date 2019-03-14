@@ -350,17 +350,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     func subscribeToKeyboardNotifications() {
         
-        usernameTextField.becomeFirstResponder()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
         
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
-        //NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        //NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -370,32 +367,21 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         let userInfo = notification.userInfo!
         let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
-        //if usernameTextField.isFirstResponder {
-            
-            myTripsTitle.isHidden = true
-            myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
-            usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
-            passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
-        //}
-        
-//        if passwordTextField.becomeFirstResponder() {
-//
-//            myTripsTitle.isHidden = true
-//            myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
-//            usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
-//            passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
-//        }
+        myTripsTitle.isHidden = true
+        myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: keyboardFrame.height - 10.0 - myTripsLogo.frame.height)
+        usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: keyboardFrame.height - 45.0 - usernameTextField.frame.height)
+        passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
     }
     
-//    @objc func keyboardWillHide(_ notification: Notification) {
-//
-//        myTripsTitle.isHidden = false
-//        myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
-//        usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: usernameTextField.center.y + 70.0)
-//        passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: passwordTextField.center.y + 66.0)
-//    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+
+        myTripsTitle.isHidden = false
+        myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
+        usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: usernameTextField.center.y + 70.0)
+        passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: passwordTextField.center.y + 66.0)
+    }
     
-    func keyboardWillHide() {
+    func hideKeyboard() {
         
         myTripsTitle.isHidden = false
         myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
@@ -412,10 +398,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
             break
         case passwordTextField:
-            
-            keyboardWillHide()
-            //NotificationCenter.default.removeObserver(self)
-            //unsubscribeFromKeyboardNotifications()
+            passwordTextField.resignFirstResponder()
             break
             
         default:
