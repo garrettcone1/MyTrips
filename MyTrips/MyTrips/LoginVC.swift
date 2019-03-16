@@ -13,7 +13,7 @@ import Firebase
 
 class LoginVC: UIViewController, UITextFieldDelegate {
     
-    // Outlets for sign in
+    // Outlets for sign in view
     @IBOutlet weak var myTripsTitle: UILabel!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var clearView: UIView!
@@ -21,6 +21,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var myTripsLogo: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // Outlets for sign up extension view
     @IBOutlet weak var nameTextField: UITextField!
@@ -33,6 +34,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet var extensionView: UIView!
     
     var imagePicker: UIImagePickerController!
+    let container: UIView = UIView()
+    let loadingView: UIView = UIView()
+    let activityInd: UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +92,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func signInButton(_ sender: Any) {
         
+//        perforumUIUpdatesOnMain {
+//            self.displayActivityIndicator(uiView: self.view)
+//        }
         signInUser()
     }
     
@@ -148,14 +155,21 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         if enteredEmail == true && enteredPassword == true {
             
+            perforumUIUpdatesOnMain {
+                self.displayActivityIndicator(uiView: self.view)
+                self.activityInd.startAnimating()
+            }
+            
             Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
                 
                 // Check for errors
                 if error == nil && user != nil {
                     
+                    self.hideActivityIndicator(uiView: self.view)
                     print("User signed in successfully!")
                 } else {
                     
+                    self.hideActivityIndicator(uiView: self.view)
                     self.emptySignInInfo(message: "This user does not exist, Sign Up below!")
                 }
             }
@@ -350,8 +364,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     func subscribeToKeyboardNotifications() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(signInKeyboardWillAppear(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(signInKeyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(signUpKeyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(signUpKeyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
@@ -361,8 +378,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // Adjusts the keyboard with the view
-    @objc func keyboardWillAppear(_ notification: Notification) {
+    // Adjusts the SignIn keyboard with the view
+    @objc func signInKeyboardWillAppear(_ notification: Notification) {
         
         let userInfo = notification.userInfo!
         let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -373,7 +390,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: keyboardFrame.height - 5.0 - passwordTextField.frame.height)
     }
     
-    @objc func keyboardWillHide(_ notification: Notification) {
+    @objc func signInKeyboardWillHide(_ notification: Notification) {
 
         myTripsTitle.isHidden = false
         myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
@@ -381,18 +398,29 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: passwordTextField.center.y + 66.0)
     }
     
-    func hideKeyboard() {
+    // Adjust the SignUp keyboard with the view
+    @objc func signUpKeyboardWillShow(_ notification: Notification) {
         
-        myTripsTitle.isHidden = false
-        myTripsLogo.center = CGPoint(x: myTripsLogo.center.x, y: myTripsLogo.center.y + 60.0)
-        usernameTextField.center = CGPoint(x: usernameTextField.center.x, y: usernameTextField.center.y + 70.0)
-        passwordTextField.center = CGPoint(x: passwordTextField.center.x, y: passwordTextField.center.y + 66.0)
+        let userInfo = notification.userInfo!
+        let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        profileImage.isHidden = true
+        editPhotoButton.isHidden = true
+        nameTextField.center = CGPoint(x: nameTextField.center.x, y: keyboardFrame.height - 150.0 - nameTextField.frame.height)
+        emailTextField.center = CGPoint(x: emailTextField.center.x, y: keyboardFrame.height - 100.0 - emailTextField.frame.height)
+        newPasswordTextField.center = CGPoint(x: newPasswordTextField.center.x, y: keyboardFrame.height - 50.0 - newPasswordTextField.frame.height)
+    }
+    
+    @objc func signUpKeyboardWillHide(_ notification: Notification) {
+        
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         switch textField {
-            
+
+        // SignInView cases
         case usernameTextField:
             usernameTextField.resignFirstResponder()
             passwordTextField.becomeFirstResponder()
@@ -400,11 +428,50 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         case passwordTextField:
             passwordTextField.resignFirstResponder()
             break
+
+        // SignUpView cases
+        case nameTextField:
+            nameTextField.resignFirstResponder()
+            emailTextField.becomeFirstResponder()
+            
+        case emailTextField:
+            emailTextField.resignFirstResponder()
+            newPasswordTextField.becomeFirstResponder()
+            
+        case newPasswordTextField:
+            newPasswordTextField.resignFirstResponder()
             
         default:
             break
         }
         return true
+    }
+    
+    // Set up for activity indicator view
+    func displayActivityIndicator(uiView: UIView) {
+        
+        container.frame = uiView.frame
+        container.center = uiView.center
+        
+        loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        loadingView.center = uiView.center
+        loadingView.backgroundColor = UIColor.white
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        activityInd.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        activityInd.style = UIActivityIndicatorView.Style.gray
+        activityInd.center = CGPoint(x: loadingView.frame.size.width / 2, y: loadingView.frame.size.height / 2)
+        loadingView.addSubview(activityInd)
+        container.addSubview(loadingView)
+        uiView.addSubview(container)
+    }
+    
+    // Hides the activity indicator view
+    func hideActivityIndicator(uiView: UIView) {
+        
+        activityInd.stopAnimating()
+        container.removeFromSuperview()
     }
     
     // Set up for background and button layouts
