@@ -14,7 +14,6 @@ class SettingsVC: UIViewController {
     
     // Outlets
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var lightOrDarkTheme: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var backgroundView: UIImageView!
     

@@ -21,7 +21,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var myTripsLogo: UIImageView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // Outlets for sign up extension view
     @IBOutlet weak var nameTextField: UITextField!
@@ -60,6 +59,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        newPasswordTextField.delegate = self
+        
         let cancelButtonTapped = UITapGestureRecognizer(target: self, action: #selector(didTapCancel))
         cancelButton.addGestureRecognizer(cancelButtonTapped)
         cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
@@ -92,9 +95,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func signInButton(_ sender: Any) {
         
-//        perforumUIUpdatesOnMain {
-//            self.displayActivityIndicator(uiView: self.view)
-//        }
         signInUser()
     }
     
@@ -138,7 +138,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // Sign in an existing user with the provided information for Firebase
+    // Sign in an existing user with the provided information with Firebase
     func signInUser() {
         
         let enteredEmail = isEmailValid(testString: usernameTextField.text!)
@@ -249,14 +249,17 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             
             alertMessage(message: "Invalid Login Credentials")
             emptySignUpInfo()
+            setButton(enabled: false)
         } else if enteredEmail == true && enteredPassword == false {
             
             alertMessage(message: "Invalid Login Credentials")
             emptySignUpInfo()
+            setButton(enabled: false)
         } else {
             
             alertMessage(message: "Invalid Login Credentials")
             emptySignUpInfo()
+            setButton(enabled: false)
         }
     }
     
@@ -375,6 +378,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+        
+        nameTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
+        newPasswordTextField.resignFirstResponder()
+        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -413,7 +421,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @objc func signUpKeyboardWillHide(_ notification: Notification) {
         
-        
+        profileImage.isHidden = false
+        editPhotoButton.isHidden = false
+        nameTextField.center = CGPoint(x: nameTextField.center.x, y: nameTextField.center.y + 100.0)
+        emailTextField.center = CGPoint(x: emailTextField.center.x, y: emailTextField.center.y + 100.0)
+        newPasswordTextField.center = CGPoint(x: newPasswordTextField.center.x, y: newPasswordTextField.center.y + 100.0)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -433,14 +445,15 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         case nameTextField:
             nameTextField.resignFirstResponder()
             emailTextField.becomeFirstResponder()
-            
+            break
         case emailTextField:
             emailTextField.resignFirstResponder()
             newPasswordTextField.becomeFirstResponder()
-            
+            break
         case newPasswordTextField:
             newPasswordTextField.resignFirstResponder()
-            
+            setButton(enabled: true)
+            break
         default:
             break
         }
