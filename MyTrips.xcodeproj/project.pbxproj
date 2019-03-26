@@ -18,6 +18,9 @@
 		4A1FE3E322101A6E00739396 /* CliffJump.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A1FE3E222101A6E00739396 /* CliffJump.mp4 */; };
 		4A1FE3E522101AD100739396 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1FE3E422101AD100739396 /* GCDBlackBox.swift */; };
 		4A1FE3E72211343E00739396 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A1FE3E62211343E00739396 /* GoogleService-Info.plist */; };
+		4A46DAE4224AB3FA0065A523 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAE3224AB3FA0065A523 /* Constants.swift */; };
+		4A46DAE6224ABF730065A523 /* GoogleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAE5224ABF730065A523 /* GoogleClient.swift */; };
+		4A46DAE8224AC0B30065A523 /* GoogleConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAE7224AC0B30065A523 /* GoogleConvenience.swift */; };
 		4A9F99142215E47A00C38909 /* HomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99132215E47A00C38909 /* HomePageVC.swift */; };
 		4A9F99162215E48600C38909 /* GroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99152215E48600C38909 /* GroupsVC.swift */; };
 		4A9F99182215E4B100C38909 /* TripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99172215E4B100C38909 /* TripsVC.swift */; };
@@ -64,6 +67,9 @@
 		4A1FE3E222101A6E00739396 /* CliffJump.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CliffJump.mp4; sourceTree = "<group>"; };
 		4A1FE3E422101AD100739396 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		4A1FE3E62211343E00739396 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4A46DAE3224AB3FA0065A523 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4A46DAE5224ABF730065A523 /* GoogleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleClient.swift; sourceTree = "<group>"; };
+		4A46DAE7224AC0B30065A523 /* GoogleConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleConvenience.swift; sourceTree = "<group>"; };
 		4A9F99132215E47A00C38909 /* HomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
 		4A9F99152215E48600C38909 /* GroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsVC.swift; sourceTree = "<group>"; };
 		4A9F99172215E4B100C38909 /* TripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsVC.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 				4A1FE3B12210154900739396 /* AppDelegate.swift */,
 				4A1FE3E422101AD100739396 /* GCDBlackBox.swift */,
 				4A1FE3DF2210175F00739396 /* Videos */,
+				4A46DAE2224AB3960065A523 /* GoogleClient */,
 				4A1FE3E12210178000739396 /* MyTrips */,
 				4A1FE3B52210154900739396 /* Main.storyboard */,
 				4A1FE3BA2210154A00739396 /* LaunchScreen.storyboard */,
@@ -190,6 +197,16 @@
 				4A9F99192215E4C500C38909 /* SettingsVC.swift */,
 			);
 			path = MyTrips;
+			sourceTree = "<group>";
+		};
+		4A46DAE2224AB3960065A523 /* GoogleClient */ = {
+			isa = PBXGroup;
+			children = (
+				4A46DAE5224ABF730065A523 /* GoogleClient.swift */,
+				4A46DAE7224AC0B30065A523 /* GoogleConvenience.swift */,
+				4A46DAE3224AB3FA0065A523 /* Constants.swift */,
+			);
+			path = GoogleClient;
 			sourceTree = "<group>";
 		};
 		A1A5C68CBE9BF5D34052F07F /* Pods */ = {
@@ -443,12 +460,15 @@
 			files = (
 				4AA34BB6222643830035D806 /* CustomCalendarCell.swift in Sources */,
 				4A1FE3B42210154900739396 /* LoginVC.swift in Sources */,
+				4A46DAE8224AC0B30065A523 /* GoogleConvenience.swift in Sources */,
 				4A9F99182215E4B100C38909 /* TripsVC.swift in Sources */,
+				4A46DAE6224ABF730065A523 /* GoogleClient.swift in Sources */,
 				4A1FE3E522101AD100739396 /* GCDBlackBox.swift in Sources */,
 				4A9F99142215E47A00C38909 /* HomePageVC.swift in Sources */,
 				4A1FE3B22210154900739396 /* AppDelegate.swift in Sources */,
 				4A9F99162215E48600C38909 /* GroupsVC.swift in Sources */,
 				4A9F991A2215E4C500C38909 /* SettingsVC.swift in Sources */,
+				4A46DAE4224AB3FA0065A523 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

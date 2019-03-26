@@ -454,6 +454,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             newPasswordTextField.resignFirstResponder()
             setButton(enabled: true)
             break
+            
         default:
             break
         }
