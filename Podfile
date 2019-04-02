@@ -13,6 +13,8 @@ target 'MyTrips' do
   
   pod 'JTAppleCalendar', '~> 7.0'
   
+  pod 'GooglePlaces'
+  
   target 'MyTripsTests' do
     inherit! :search_paths
     # Pods for testing

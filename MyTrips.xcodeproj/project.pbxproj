@@ -245,6 +245,7 @@
 				4A1FE3AB2210154900739396 /* Frameworks */,
 				4A1FE3AC2210154900739396 /* Resources */,
 				87F6310C5D42E462D159251A /* [CP] Embed Pods Frameworks */,
+				880F546A3D59354F00369007 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -416,6 +417,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTrips/Pods-MyTrips-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		880F546A3D59354F00369007 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyTrips/Pods-MyTrips-resources.sh",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyTrips/Pods-MyTrips-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E7D646FB0B00812F77009EA5 /* [CP] Check Pods Manifest.lock */ = {
