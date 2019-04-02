@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        // Set the Google Places API Key
+        GMSPlacesClient.provideAPIKey("AIzaSyBQUuNH03XK1tuHxViJP0Es0eOFX_O-Mag")
+        
         FirebaseApp.configure()
         
         _ = Auth.auth().addStateDidChangeListener { (auth, user) in

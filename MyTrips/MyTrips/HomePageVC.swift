@@ -9,39 +9,46 @@
 import Foundation
 import UIKit
 import Firebase
+import GooglePlaces
 
-class HomePageVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class HomePageVC: UIViewController {
     
-    @IBOutlet weak var adjustableView: UIView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var resultsTableView: UITableView!
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchBar.layer.cornerRadius = 5
-        adjustableView.layer.cornerRadius = 5
-        
-        self.resultsTableView.isHidden = true
+        searchView.layer.cornerRadius = 5
+        searchButton.layer.cornerRadius = 5
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    @IBAction func searchForDestination(_ sender: Any) {
         
+        let autoCompleteController = GMSAutocompleteViewController()
+        autoCompleteController.delegate = self
+        
+        self.present(autoCompleteController, animated: true, completion: nil)
+    }
+}
+
+extension HomePageVC: GMSAutocompleteViewControllerDelegate {
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        
+        // Get the selected destination name and display it
         
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         
-        return 3
+        // Handle error
+        print(error)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         
-        if let cell = resultsTableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as? SearchCell {
-            
-            return cell
-        }
-        
-        return UITableViewCell()
+        // Dismiss if user pressed cancel
+        dismiss(animated: true, completion: nil)
     }
 }
