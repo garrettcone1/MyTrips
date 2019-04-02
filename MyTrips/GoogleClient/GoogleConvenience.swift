@@ -11,8 +11,23 @@ import UIKit
 
 extension GoogleClient {
     
-    public func getResultsForSearch() {
+    public func getResultsForSearch(searchInput: String) {
         
-        
+        perforumUIUpdatesOnMain {
+            
+            GoogleClient.sharedInstance().taskForGETMethod(input: searchInput) { (results, error) in
+                
+                if let results = results {
+                    
+                    for result in results {
+                        
+                        let description = result.description
+                        
+                        print(description)
+                        
+                    }
+                }
+            }
+        }
     }
 }
