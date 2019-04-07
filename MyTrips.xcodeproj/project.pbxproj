@@ -21,7 +21,7 @@
 		4A46DAE4224AB3FA0065A523 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAE3224AB3FA0065A523 /* Constants.swift */; };
 		4A46DAE6224ABF730065A523 /* GoogleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAE5224ABF730065A523 /* GoogleClient.swift */; };
 		4A46DAE8224AC0B30065A523 /* GoogleConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAE7224AC0B30065A523 /* GoogleConvenience.swift */; };
-		4A46DAEE22544D2E0065A523 /* CityDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAED22544D2E0065A523 /* CityDetailsVC.swift */; };
+		4A46DAEE22544D2E0065A523 /* PlaceDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46DAED22544D2E0065A523 /* PlaceDetailsVC.swift */; };
 		4A9F99142215E47A00C38909 /* HomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99132215E47A00C38909 /* HomePageVC.swift */; };
 		4A9F99162215E48600C38909 /* GroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99152215E48600C38909 /* GroupsVC.swift */; };
 		4A9F99182215E4B100C38909 /* TripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F99172215E4B100C38909 /* TripsVC.swift */; };
@@ -71,7 +71,7 @@
 		4A46DAE3224AB3FA0065A523 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4A46DAE5224ABF730065A523 /* GoogleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleClient.swift; sourceTree = "<group>"; };
 		4A46DAE7224AC0B30065A523 /* GoogleConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleConvenience.swift; sourceTree = "<group>"; };
-		4A46DAED22544D2E0065A523 /* CityDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailsVC.swift; sourceTree = "<group>"; };
+		4A46DAED22544D2E0065A523 /* PlaceDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsVC.swift; sourceTree = "<group>"; };
 		4A9F99132215E47A00C38909 /* HomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageVC.swift; sourceTree = "<group>"; };
 		4A9F99152215E48600C38909 /* GroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsVC.swift; sourceTree = "<group>"; };
 		4A9F99172215E4B100C38909 /* TripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsVC.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				4A9F99132215E47A00C38909 /* HomePageVC.swift */,
-				4A46DAED22544D2E0065A523 /* CityDetailsVC.swift */,
+				4A46DAED22544D2E0065A523 /* PlaceDetailsVC.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -505,7 +505,7 @@
 			files = (
 				4AA34BB6222643830035D806 /* CustomCalendarCell.swift in Sources */,
 				4A1FE3B42210154900739396 /* LoginVC.swift in Sources */,
-				4A46DAEE22544D2E0065A523 /* CityDetailsVC.swift in Sources */,
+				4A46DAEE22544D2E0065A523 /* PlaceDetailsVC.swift in Sources */,
 				4A46DAE8224AC0B30065A523 /* GoogleConvenience.swift in Sources */,
 				4A9F99182215E4B100C38909 /* TripsVC.swift in Sources */,
 				4A46DAE6224ABF730065A523 /* GoogleClient.swift in Sources */,

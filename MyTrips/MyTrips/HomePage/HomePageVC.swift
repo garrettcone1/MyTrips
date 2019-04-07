@@ -11,6 +11,12 @@ import UIKit
 import Firebase
 import GooglePlaces
 
+struct PlaceResults {
+    
+    let description: String
+    let photos: [GMSPlacePhotoMetadata]
+}
+
 class HomePageVC: UIViewController {
     
     @IBOutlet weak var searchView: UIView!
@@ -27,19 +33,28 @@ class HomePageVC: UIViewController {
         
         let autoCompleteController = GMSAutocompleteViewController()
         autoCompleteController.delegate = self
-        
         self.present(autoCompleteController, animated: true, completion: nil)
     }
 }
 
 extension HomePageVC: GMSAutocompleteViewControllerDelegate {
     
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+    func openVC() {
         
-        // Get the selected destination name and display it
-        
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "PlaceDetailsVC")
+        self.present(controller!, animated: true, completion: nil)
     }
     
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+
+        // Get the selected destination name and save the info
+//        _ = PlaceResults.init(description: place.name!, photos: place.photos!)
+        print(place.name!)
+        
+        dismiss(animated: true, completion: nil)
+        openVC()
+    }
+
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         
         // Handle error

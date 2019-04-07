@@ -47,7 +47,7 @@ class SettingsVC: UIViewController {
                 } else {
                     
                     if let urlPath = url {
-                        // Debugger skips over checking the error??????
+                        
                         URLSession.shared.dataTask(with: urlPath, completionHandler: { (data, response, error) in
                             
                             if error != nil {
