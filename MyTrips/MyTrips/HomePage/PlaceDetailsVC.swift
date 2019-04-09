@@ -8,10 +8,11 @@
 
 import Foundation
 import UIKit
+import GooglePlaces
 
 class PlaceDetailsVC: UIViewController {
     
-    var placeData: PlaceResults?
+    var placeData: GooglePlace?
     
     @IBOutlet weak var placePhotos: UIImageView!
     @IBOutlet weak var placeNameLabel: UILabel!
@@ -24,9 +25,21 @@ class PlaceDetailsVC: UIViewController {
     
     func displayPlaceDetails() {
         
-        perforumUIUpdatesOnMain {
+        
+//        guard placeNameLabel.text == self.placeData?.description else {
+//
+//            return
+//        }
+        if let description = placeData?.description {
             
-            self.placeNameLabel.text = self.placeData?.description
+            perforumUIUpdatesOnMain {
+                self.placeNameLabel.text = description
+            }
         }
+        
+        
+        //print(placeName)
+        //self.placeNameLabel.text = placeName
+            
     }
 }

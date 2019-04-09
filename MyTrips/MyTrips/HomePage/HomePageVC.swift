@@ -22,6 +22,8 @@ class HomePageVC: UIViewController {
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchButton: UIButton!
     
+    var placeData: GooglePlace?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,20 +41,17 @@ class HomePageVC: UIViewController {
 
 extension HomePageVC: GMSAutocompleteViewControllerDelegate {
     
-    func openVC() {
-        
-        let controller = self.storyboard?.instantiateViewController(withIdentifier: "PlaceDetailsVC")
-        self.present(controller!, animated: true, completion: nil)
-    }
-    
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
 
         // Get the selected destination name and save the info
-//        _ = PlaceResults.init(description: place.name!, photos: place.photos!)
-        print(place.name!)
-        
-        dismiss(animated: true, completion: nil)
-        openVC()
+        if let description = place.name {
+            
+            self.placeData?.description = description
+            print("Selected place name: \(description)")
+            
+            let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "PlaceDetailsVC")
+            viewController.present(nextVC!, animated: true, completion: nil)
+        }
     }
 
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
