@@ -11,9 +11,9 @@ import UIKit
 
 class GooglePlace {
     
-    var description: String?
+    var description: String
     
-    init(description: String?) {
+    init(description: String) {
         
         self.description = description
     }

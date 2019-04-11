@@ -46,11 +46,13 @@ extension HomePageVC: GMSAutocompleteViewControllerDelegate {
         // Get the selected destination name and save the info
         if let description = place.name {
             
-            self.placeData?.description = description
             print("Selected place name: \(description)")
             
-            let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "PlaceDetailsVC")
-            viewController.present(nextVC!, animated: true, completion: nil)
+            let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "PlaceDetailsVC") as! PlaceDetailsVC
+            
+            nextVC.placeData?.description = description
+            
+            viewController.present(nextVC, animated: true, completion: nil)
         }
     }
 

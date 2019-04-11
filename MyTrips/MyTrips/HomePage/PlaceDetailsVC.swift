@@ -20,26 +20,8 @@ class PlaceDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        displayPlaceDetails()
-    }
-    
-    func displayPlaceDetails() {
-        
-        
-//        guard placeNameLabel.text == self.placeData?.description else {
-//
-//            return
-//        }
-        if let description = placeData?.description {
-            
-            perforumUIUpdatesOnMain {
-                self.placeNameLabel.text = description
-            }
+        perforumUIUpdatesOnMain {
+            self.placeNameLabel.text = self.placeData?.description
         }
-        
-        
-        //print(placeName)
-        //self.placeNameLabel.text = placeName
-            
     }
 }
