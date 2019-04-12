@@ -8,13 +8,11 @@
 
 import Foundation
 import UIKit
+import GooglePlaces
 
 class GooglePlace {
     
-    var description: String
-    
-    init(description: String) {
-        
-        self.description = description
-    }
+    var description: String?
+    var photo: GMSPlacePhotoMetadata?
+    var placeId: String?
 }

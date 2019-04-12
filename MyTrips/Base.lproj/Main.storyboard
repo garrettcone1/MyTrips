@@ -615,24 +615,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mrC-CX-WCG">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGk-v5-LCF">
-                                <rect key="frame" x="20" y="104" width="374" height="41"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="19"/>
+                                <rect key="frame" x="20" y="44" width="374" height="41"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="27"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mrC-CX-WCG">
-                                <rect key="frame" x="0.0" y="153" width="414" height="172"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="iXu-qD-p7G" firstAttribute="bottom" secondItem="mrC-CX-WCG" secondAttribute="bottom" constant="537" id="5ES-b7-h6d"/>
+                            <constraint firstItem="iXu-qD-p7G" firstAttribute="bottom" secondItem="mrC-CX-WCG" secondAttribute="bottom" constant="646" id="5ES-b7-h6d"/>
                             <constraint firstItem="mrC-CX-WCG" firstAttribute="trailing" secondItem="iXu-qD-p7G" secondAttribute="trailing" id="81T-gY-RZC"/>
-                            <constraint firstItem="mrC-CX-WCG" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" constant="109" id="CLi-CV-Kqg"/>
+                            <constraint firstItem="mrC-CX-WCG" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" constant="-44" id="CLi-CV-Kqg"/>
                             <constraint firstItem="iXu-qD-p7G" firstAttribute="trailing" secondItem="qGk-v5-LCF" secondAttribute="trailing" constant="20" id="CMa-jp-2Kl"/>
                             <constraint firstItem="qGk-v5-LCF" firstAttribute="leading" secondItem="iXu-qD-p7G" secondAttribute="leading" constant="20" id="FvK-Yh-3Gk"/>
-                            <constraint firstItem="iXu-qD-p7G" firstAttribute="bottom" secondItem="qGk-v5-LCF" secondAttribute="bottom" constant="717" id="G4N-dh-cxD"/>
-                            <constraint firstItem="qGk-v5-LCF" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" constant="60" id="Xlf-3u-CJz"/>
+                            <constraint firstItem="iXu-qD-p7G" firstAttribute="bottom" secondItem="qGk-v5-LCF" secondAttribute="bottom" constant="777" id="G4N-dh-cxD"/>
+                            <constraint firstItem="qGk-v5-LCF" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" id="Xlf-3u-CJz"/>
                             <constraint firstItem="mrC-CX-WCG" firstAttribute="leading" secondItem="iXu-qD-p7G" secondAttribute="leading" id="cbz-eH-GrI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iXu-qD-p7G"/>
@@ -640,12 +641,12 @@
                     <navigationItem key="navigationItem" id="rHV-hw-I48"/>
                     <connections>
                         <outlet property="placeNameLabel" destination="qGk-v5-LCF" id="ojs-ry-c5h"/>
-                        <outlet property="placePhotos" destination="mrC-CX-WCG" id="n9T-te-4QD"/>
+                        <outlet property="placePhoto" destination="mrC-CX-WCG" id="7tH-y6-BmW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="357-mz-Lyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2546" y="-901"/>
+            <point key="canvasLocation" x="2544.9275362318845" y="-901.33928571428567"/>
         </scene>
         <!--GroupsVC-->
         <scene sceneID="1aJ-eI-YhH">
