@@ -29,6 +29,11 @@ class PlaceDetailsVC: UIViewController {
         downloadPlaceImage()
     }
     
+    @IBAction func exitDetailVCButton(_ sender: Any) {
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
     func downloadPlaceImage() {
         
         placesClient.loadPlacePhoto(placeData.photo!) { (image, error) in
@@ -43,5 +48,21 @@ class PlaceDetailsVC: UIViewController {
                 }
             }
         }
+    }
+    
+    func fetchPlaceDetails() {
+        
+//        placesClient.lookUpPlaceID(placeData.placeId!) { (place, error) in
+//
+//            if let error = error {
+//
+//                print(error)
+//            } else {
+//
+//
+//            }
+//        }
+        
+        //placesClient.fetchPlace(fromPlaceID: placeData.placeId!, placeFields: GMSPlaceField.types, sessionToken: GMSAutocompleteSessionToken, callback: <#T##GMSPlaceResultCallback##GMSPlaceResultCallback##(GMSPlace?, Error?) -> Void#>)
     }
 }

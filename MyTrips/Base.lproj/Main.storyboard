@@ -618,12 +618,19 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mrC-CX-WCG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGk-v5-LCF">
-                                <rect key="frame" x="20" y="44" width="374" height="41"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGk-v5-LCF">
+                                <rect key="frame" x="84" y="156" width="310" height="41"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcx-dH-OBB">
+                                <rect key="frame" x="20" y="44" width="48" height="48"/>
+                                <state key="normal" image="BackArrow2"/>
+                                <connections>
+                                    <action selector="exitDetailVCButton:" destination="cTf-hU-BeB" eventType="touchUpInside" id="6j4-lI-bbt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -631,10 +638,14 @@
                             <constraint firstItem="mrC-CX-WCG" firstAttribute="trailing" secondItem="iXu-qD-p7G" secondAttribute="trailing" id="81T-gY-RZC"/>
                             <constraint firstItem="mrC-CX-WCG" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" constant="-44" id="CLi-CV-Kqg"/>
                             <constraint firstItem="iXu-qD-p7G" firstAttribute="trailing" secondItem="qGk-v5-LCF" secondAttribute="trailing" constant="20" id="CMa-jp-2Kl"/>
-                            <constraint firstItem="qGk-v5-LCF" firstAttribute="leading" secondItem="iXu-qD-p7G" secondAttribute="leading" constant="20" id="FvK-Yh-3Gk"/>
-                            <constraint firstItem="iXu-qD-p7G" firstAttribute="bottom" secondItem="qGk-v5-LCF" secondAttribute="bottom" constant="777" id="G4N-dh-cxD"/>
-                            <constraint firstItem="qGk-v5-LCF" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" id="Xlf-3u-CJz"/>
+                            <constraint firstItem="iXu-qD-p7G" firstAttribute="bottom" secondItem="qGk-v5-LCF" secondAttribute="bottom" constant="665" id="G4N-dh-cxD"/>
+                            <constraint firstItem="hcx-dH-OBB" firstAttribute="leading" secondItem="iXu-qD-p7G" secondAttribute="leading" constant="20" id="Hxb-3s-KbJ"/>
+                            <constraint firstItem="iXu-qD-p7G" firstAttribute="trailing" secondItem="hcx-dH-OBB" secondAttribute="trailing" constant="346" id="NuM-3k-IbT"/>
+                            <constraint firstItem="qGk-v5-LCF" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" constant="112" id="Xlf-3u-CJz"/>
                             <constraint firstItem="mrC-CX-WCG" firstAttribute="leading" secondItem="iXu-qD-p7G" secondAttribute="leading" id="cbz-eH-GrI"/>
+                            <constraint firstItem="hcx-dH-OBB" firstAttribute="top" secondItem="iXu-qD-p7G" secondAttribute="top" id="gUn-zC-LUP"/>
+                            <constraint firstItem="iXu-qD-p7G" firstAttribute="bottom" secondItem="hcx-dH-OBB" secondAttribute="bottom" constant="770" id="kLc-NT-uhb"/>
+                            <constraint firstItem="qGk-v5-LCF" firstAttribute="leading" secondItem="iXu-qD-p7G" secondAttribute="leading" constant="84" id="qlj-8l-9dP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iXu-qD-p7G"/>
                     </view>
@@ -674,6 +685,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BackArrow2" width="155" height="155"/>
         <image name="Cancel Button" width="60" height="60"/>
         <image name="Change Password" width="90" height="90"/>
         <image name="Groups" width="35" height="35"/>

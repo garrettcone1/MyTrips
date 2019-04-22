@@ -46,8 +46,8 @@ extension HomePageVC: GMSAutocompleteViewControllerDelegate {
         // Get the selected destination name and save the info
         if let description = place.name {
             
-            let photo = place.photos![0]
-            //let placeId = place.placeID
+            let photo = place.photos![1]
+            let placeId = place.placeID
             
             print("Selected place name: \(description)")
             
@@ -55,6 +55,7 @@ extension HomePageVC: GMSAutocompleteViewControllerDelegate {
             
             nextVC.placeData.description = description
             nextVC.placeData.photo = photo
+            nextVC.placeData.placeId = placeId
             
             viewController.present(nextVC, animated: true, completion: nil)
         }
@@ -64,6 +65,7 @@ extension HomePageVC: GMSAutocompleteViewControllerDelegate {
         
         // Handle error
         print(error)
+        dismiss(animated: true, completion: nil)
     }
     
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
